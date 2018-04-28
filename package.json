@@ -1,11 +1,11 @@
 {
-  "name": "draw-svg",
+  "name": "web-scaper",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "parcel index.html",
-    "build": "rm -rf dist && parcel build index.html --public-url '.'",
+    "start": "ts-node src/server/index.ts",
+    "build": "rm -rf dist && parcel build src/client/index.html --public-url '.'",
     "deploy": "git add -f dist && git commit -m 'Temporary commit' && git subtree push --prefix dist origin gh-pages && git reset HEAD~",
     "release": "npm run build && npm run deploy"
   },
@@ -13,6 +13,7 @@
   "author": "Chet Corcos <ccorcos@gmail.com> (http://www.chetcorcos.com/)",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
     "glamor": "^2.20.40",
     "lodash": "^4.17.5",
     "react": "^16.3.1",
@@ -20,12 +21,13 @@
     "reactive-magic": "^2.1.5"
   },
   "devDependencies": {
+    "@types/express": "^4.11.1",
     "@types/lodash": "^4.14.106",
     "@types/react": "^16.3.5",
     "@types/react-dom": "^16.0.4",
     "parcel-bundler": "^1.7.0",
     "parcel-plugin-typescript": "^0.7.0",
-    "ts-node": "^5.0.1",
+    "ts-node": "^6.0.1",
     "typescript": "^2.8.1"
   }
 }
