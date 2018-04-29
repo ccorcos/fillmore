@@ -4,11 +4,25 @@ import * as fs from "fs-extra"
 import * as moment from "moment"
 import * as markdownIt from "markdown-it"
 import * as nodemailer from "nodemailer"
+// Setup a file with your gmail email and password.
+// Make sure you turn on "Less secure mode":
+// https://support.google.com/accounts/answer/6010255?hl=en
+import { email, password, sendTo, from, replyTo } from "./config"
 
-const sendTo = ["ccorcos@gmail.com"]
-const email = "chets.robot@gmail.com"
-const password = "chethasarobot"
+const logFile = "/tmp/filmore-scaper.log"
 const filePath = "/tmp/fillmore-scraper.json"
+
+function log(...args: Array<string>) {
+	fs.appendFile(logFile, args.join(" ") + "\n")
+	console.log(...args)
+}
+
+process.on("uncaughtException", err => {
+	log("ERROR", err.name, err.message)
+	if (err.stack) {
+		log(err.stack.toString())
+	}
+})
 
 interface Item {
 	link: string
@@ -23,7 +37,7 @@ interface Blob {
 }
 
 async function main() {
-	console.log("Running", moment().format("LLL"))
+	log(`\n\nRunning ${moment().format("LLL")}`)
 	const browser = await puppeteer.launch()
 	const page = await browser.newPage()
 	await page.goto("http://thefillmore.com/calendar/")
@@ -54,7 +68,7 @@ async function main() {
 
 	const results = _.compact(allItems)
 
-	console.log("Found", results.length, "items.")
+	log(`Found ${results.length} items.`)
 
 	if (await fs.pathExists(filePath)) {
 		const contents = await fs.readFile(filePath, "utf-8")
@@ -65,7 +79,7 @@ async function main() {
 			_.isEqual
 		)
 
-		console.log("Found", newItems.length, "new items")
+		log(`Found ${newItems.length} new items.`)
 
 		if (newItems.length > 0) {
 			const markdownText = newItems
@@ -85,8 +99,9 @@ async function main() {
 				`smtps://${email}:${password}@smtp.gmail.com`
 			)
 
-			const mailOptions = {
-				from: `"Chet's Robot" <chets.robot@gmail.com>`,
+			const mailOptions: nodemailer.SendMailOptions = {
+				from: from,
+				replyTo: replyTo,
 				to: sendTo.join(", "),
 				subject: "New Fillmore Events!",
 				text: markdownText,
@@ -105,11 +120,11 @@ async function main() {
 				}
 			)
 
-			console.log("Sent email to ", sendTo.join(", "))
+			log(`Sent email to ${sendTo.join(", ")}`)
 		}
 	}
 
-	console.log("Writing", filePath)
+	log("Writing", filePath)
 	await fs.writeFile(
 		filePath,
 		JSON.stringify(
@@ -120,7 +135,7 @@ async function main() {
 		"utf-8"
 	)
 
-	console.log("Done")
+	log("Done")
 	await browser.close()
 }
 

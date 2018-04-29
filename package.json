@@ -4,18 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node main.ts"
+    "once": "ts-node main.ts",
+    "setup": "ts-node setup.ts > ~/Library/LaunchAgents/fillmore-calendar.application.plist",
+    "logs": "code /tmp/filmore-scaper.log",
+    "json": "code /tmp/fillmore-scraper.json"
   },
   "keywords": [],
   "author": "Chet Corcos <ccorcos@gmail.com> (http://www.chetcorcos.com/)",
   "license": "ISC",
   "dependencies": {
+    "@types/shelljs": "^0.7.8",
     "fs-extra": "^5.0.0",
     "lodash": "^4.17.5",
     "markdown-it": "^8.4.1",
     "moment": "^2.22.1",
     "nodemailer": "^4.6.4",
-    "puppeteer": "^1.3.0"
+    "puppeteer": "^1.3.0",
+    "shelljs": "^0.8.1"
   },
   "devDependencies": {
     "@types/fs-extra": "^5.0.2",
