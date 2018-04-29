@@ -1,4 +1,4 @@
-# Fillmore Calendar Parser
+# Fillmore Calendar
 
 It's always bothered me that [The Fillmore](http://thefillmore.com/calendar/) doesn't have a email list. There are so many amazing concerts there that I miss out on because I don't check the caledar every day. So I made this little script which will check the calendar and send an email if anything new pops up.
 
@@ -22,10 +22,10 @@ Or you can just let me know you're email and I'll add you to my list.
 - `npm run logs` opens the log file in VSCode.
 - `npm run json` opens up the latest json dump in VSCode.
 
-https://superuser.com/a/907889/310207
+## Setup Crontab
 
 ```
 0 * * * * cd /Users/chet/Code/js/web-scaper && npm run once
 ```
 
-# fillmore
+This helped me: https://superuser.com/a/907889/310207

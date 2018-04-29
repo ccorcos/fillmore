@@ -1,11 +1,10 @@
 {
-  "name": "web-scaper",
+  "name": "fillmore-calendar",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "once": "ts-node main.ts",
-    "setup": "ts-node setup.ts > ~/Library/LaunchAgents/fillmore-calendar.application.plist",
     "logs": "code /tmp/filmore-scaper.log",
     "json": "code /tmp/fillmore-scraper.json"
   },
