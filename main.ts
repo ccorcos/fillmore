@@ -103,7 +103,7 @@ async function main() {
 				from: from,
 				replyTo: replyTo,
 				to: sendTo.join(", "),
-				subject: "Fillmore Calendar - " + moment().calendar(),
+				subject: "Fillmore Calendar - " + moment().format("LLL"),
 				text: markdownText,
 				html: html,
 			}
