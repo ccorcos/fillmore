@@ -25,7 +25,7 @@ Or you can just let me know you're email and I'll add you to my list.
 ## Setup Crontab
 
 ```
-0 * * * * cd /Users/chet/Code/js/web-scaper && npm run once
+0 * * * * cd /Users/chet/Code/js/web-scaper && /usr/local/bin/npm run once
 ```
 
 This helped me: https://superuser.com/a/907889/310207
