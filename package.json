@@ -4,9 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "once": "ts-node main.ts",
-    "logs": "code /tmp/filmore-scaper.log",
-    "json": "code /tmp/fillmore-scraper.json"
+    "once": "ts-node main.ts"
   },
   "keywords": [],
   "author": "Chet Corcos <ccorcos@gmail.com> (http://www.chetcorcos.com/)",

@@ -9,8 +9,8 @@ import * as nodemailer from "nodemailer"
 // https://support.google.com/accounts/answer/6010255?hl=en
 import { email, password, sendTo, from, replyTo } from "./config"
 
-const logFile = "/tmp/filmore-scaper.log"
-const filePath = "/tmp/fillmore-scraper.json"
+const logFile = __dirname + "/fillmore-scraper.log"
+const filePath = __dirname + "/fillmore-scraper.json"
 
 function log(...args: Array<string>) {
 	fs.appendFile(logFile, args.join(" ") + "\n")

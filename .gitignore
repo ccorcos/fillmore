@@ -4,3 +4,5 @@ package-lock.json
 .cache
 dist
 config.ts
+fillmore-scraper.log
+fillmore-scraper.json
