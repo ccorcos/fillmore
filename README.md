@@ -16,16 +16,59 @@ export const sendTo = ["XXX@example.com"]
 
 Or you can just let me know you're email and I'll add you to my list.
 
-## Commands
+## Setup Launchd
 
-- `npm run once` runs the program once.
-- `npm run logs` opens the log file in VSCode.
-- `npm run json` opens up the latest json dump in VSCode.
+Create the file `~/Library/LaunchAgents/com.fillmore.daemon.plist` with the contents below. (You will need to edit the paths to point to this directory).
 
-## Setup Crontab
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+	<dict>
 
+		<key>Label</key>
+		<string>com.fillmore.daemon.plist</string>
+
+		<key>RunAtLoad</key>
+		<true/>
+
+		<key>StartInterval</key>
+		<integer>600</integer>
+
+		<key>StandardErrorPath</key>
+		<string>/Users/chet/Code/js/fillmore-calendar/stderr.log</string>
+
+		<key>StandardOutPath</key>
+		<string>/Users/chet/Code/js/fillmore-calendar/stdout.log</string>
+
+		<key>EnvironmentVariables</key>
+		<dict>
+			<key>PATH</key>
+			<string><![CDATA[/usr/local/bin:/usr/local/sbin:/usr/bin:/bin:/usr/sbin:/sbin]]></string>
+		</dict>
+
+		<key>WorkingDirectory</key>
+		<string>/Users/chet/Code/js/fillmore-calendar</string>
+
+		<key>ProgramArguments</key>
+		<array>
+			<string>/usr/local/bin/npm</string>
+			<string>run</string>
+			<string>once</string>
+		</array>
+
+	</dict>
+</plist>
 ```
-0 * * * * cd /Users/chet/Code/js/web-scaper && /usr/local/bin/npm run once
+
+Open up the `Console.app` and look at the `system.log` in case there are errors.
+
+Start the daemon.
+
+```sh
+launchctl load ~/Library/LaunchAgents/com.fillmore.daemon.plist
 ```
 
-This helped me: https://superuser.com/a/907889/310207
+## Resources
+
+- https://developer.apple.com/library/content/documentation/MacOSX/Conceptual/BPSystemStartup/Chapters/CreatingLaunchdJobs.html
